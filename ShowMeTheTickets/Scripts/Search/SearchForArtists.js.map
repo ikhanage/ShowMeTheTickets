@@ -1,1 +1,1 @@
-{"version":3,"file":"SearchForArtists.js","sourceRoot":"","sources":["SearchForArtists.ts"],"names":[],"mappings":""}
+{"version":3,"file":"SearchForArtists.js","sourceRoot":"","sources":["SearchForArtists.ts"],"names":[],"mappings":"AAAC,sDAAsD;AACvD,0DAA0D;AAE1D,IAAO,gBAAgB,CAQtB;AARD,WAAO,gBAAgB,EAAC,CAAC;IACrB;QACI,EAAE,CAAC,aAAa,CAAC,IAAI,QAAQ,EAAE,CAAC,CAAC;IACrC,CAAC;IAFe,4BAAW,cAE1B,CAAA;IAED;QACI,IAAI,CAAC,MAAM,GAAG,EAAE,CAAC,UAAU,EAAE,CAAC;IAClC,CAAC;AACL,CAAC,EARM,gBAAgB,KAAhB,gBAAgB,QAQtB"}
