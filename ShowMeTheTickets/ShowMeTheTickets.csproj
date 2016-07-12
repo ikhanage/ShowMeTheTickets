@@ -248,6 +248,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ViaGoGoBase.cs" />
+    <Compile Include="Helpers\ViaGoGoHelper.cs" />
+    <Compile Include="Interfaces\IViaGoGoHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

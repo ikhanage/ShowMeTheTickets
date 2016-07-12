@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShowMeTheTickets.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,14 @@ namespace ShowMeTheTickets.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IViaGoGoHelper _viaGoGoHelper;
+        public HomeController(IViaGoGoHelper viaGoGoHelper)
+        {
+            _viaGoGoHelper = viaGoGoHelper;
+        }
         public ActionResult Index()
         {
+            _viaGoGoHelper.GetSearchResults();
             return View();
         }
 
