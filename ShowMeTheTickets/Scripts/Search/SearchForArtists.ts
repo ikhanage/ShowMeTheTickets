@@ -29,9 +29,9 @@ module SearchForArtists {
 
     export function SelectArtist(artist: string) {
         $.ajax({
-            url: '/Search/???/',
+            url: '/Search/GetArtist/',
             type: 'GET',
-            data: { artistName: artist },
+            data: { artistTitle: artist },
             dataType: 'json',
             success: () => alert('happy'),
             error: () => alert()

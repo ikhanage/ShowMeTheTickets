@@ -6,6 +6,7 @@ using System.Web;
 using GogoKit.Models.Response;
 using System.Threading.Tasks;
 using MoreLinq;
+using HalKit.Models.Response;
 
 namespace ShowMeTheTickets.Helpers
 {
@@ -21,6 +22,12 @@ namespace ShowMeTheTickets.Helpers
             var artists = await _viaGoGoHelper.GetSearchResults(query);
 
             return artists.Items.DistinctBy(x => x.Title).OrderBy(x => x.Category);
+        }
+
+        public async Task<IReadOnlyList<Event>> GetEvents(Link categoryLink)
+        {
+            var category = await _viaGoGoHelper.GetCategories(categoryLink);
+            return await _viaGoGoHelper.GetEvents(category.Id.Value);
         }
     }
 }

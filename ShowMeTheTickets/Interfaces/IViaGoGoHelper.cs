@@ -1,5 +1,6 @@
 ﻿using GogoKit.Models.Response;
 using HalKit.Models.Response;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShowMeTheTickets.Interfaces
@@ -8,5 +9,6 @@ namespace ShowMeTheTickets.Interfaces
     {
         Task<PagedResource<SearchResult>> GetSearchResults(string query);
         Task<Category> GetCategories(Link categoryLink);
+        Task<IReadOnlyList<Event>> GetEvents(int categoryId);
     }
 }

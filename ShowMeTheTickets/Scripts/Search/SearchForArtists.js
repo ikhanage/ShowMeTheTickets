@@ -27,9 +27,9 @@ var SearchForArtists;
     SearchForArtists.Search = Search;
     function SelectArtist(artist) {
         $.ajax({
-            url: '/Search/???/',
+            url: '/Search/GetArtist/',
             type: 'GET',
-            data: { artistName: artist },
+            data: { artistTitle: artist },
             dataType: 'json',
             success: function () { return alert('happy'); },
             error: function () { return alert(); }
