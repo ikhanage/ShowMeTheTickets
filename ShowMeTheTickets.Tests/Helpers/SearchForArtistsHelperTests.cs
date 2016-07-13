@@ -2,6 +2,11 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ShowMeTheTickets.Helpers;
+using ShowMeTheTickets.Interfaces;
+using Moq;
+using GogoKit.Models.Response;
+using System.Threading.Tasks;
 
 namespace ShowMeTheTickets.Tests.Helpers
 {
@@ -9,13 +14,12 @@ namespace ShowMeTheTickets.Tests.Helpers
     /// Summary description for SearchForArtistsHelper
     /// </summary>
     [TestClass]
-    public class SearchForArtistsHelper
+    public class SearchForArtistsHelperTests
     {
-        public SearchForArtistsHelper()
+        private readonly Mock<IViaGoGoHelper> _viaGoGoHelperMoq;
+        public SearchForArtistsHelperTests()
         {
-            //
-            // TODO: Add constructor logic here
-            //
+            _viaGoGoHelperMoq = new Mock<IViaGoGoHelper>();
         }
 
         private TestContext testContextInstance;
@@ -59,11 +63,15 @@ namespace ShowMeTheTickets.Tests.Helpers
         #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void SearchForArtistResultsOutOfAlphaOrder()
         {
-            //
-            // TODO: Add test logic here
-            //
+            var results = new PagedResource<SearchResult>();
+
+            _viaGoGoHelperMoq.Setup(x => x.GetSearchResults(It.IsAny<string>()))
+                .ReturnsAsync(results);
+                
+
+             var searchForArtistsHelper = new SearhForArtistsHelper(_viaGoGoHelperMoq.Object);
         }
     }
 }
