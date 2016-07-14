@@ -1,1 +1,11 @@
-﻿@model IReadOnlyList<GogoKit.Models.Response.Event>
+﻿@model IEnumerable<GogoKit.Models.Response.Event>
+
+<div id="EventsAndTicketsContainer" class="row">
+    <div id="EventsContainer" class="col-md-6">
+        @Html.Partial("~/Views/Events/Events.cshtml", Model)
+    </div>
+    
+    <div id="TicketsContainer" class="col-md-6">
+        
+    </div>
+</div>

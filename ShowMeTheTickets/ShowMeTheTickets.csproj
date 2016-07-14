@@ -331,6 +331,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Search\ArtistResults.cshtml" />
     <Content Include="Views\Events\ArtistEvents.cshtml" />
+    <Content Include="Views\Events\Events.cshtml" />
+    <Content Include="Views\Events\Tickets.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

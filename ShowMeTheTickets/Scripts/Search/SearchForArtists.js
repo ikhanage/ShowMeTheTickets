@@ -33,9 +33,9 @@ var SearchForArtists;
             url: '/Search/GetArtist/',
             type: 'GET',
             data: { artistTitle: artist },
-            dataType: 'json',
+            dataType: 'html',
             success: SelectedArtistEvents,
-            error: function () { return alert('An error has occurred'); },
+            error: ShowAjaxError,
             complete: function () {
                 $searchContainer.unblock();
                 $artistsResultsContainer.unblock();
@@ -51,10 +51,10 @@ var SearchForArtists;
         alert(jqXHR + ' ' + textStatus + ' ' + errorThrown);
     }
     function DisplayArtistSearchResults(data) {
+        $('#EventsAndTicketsContainer').remove();
         $('#ArtistSearchContainer').append(data);
     }
     function Bindings() {
         this.Artist = ko.observable();
     }
 })(SearchForArtists || (SearchForArtists = {}));
-//# sourceMappingURL=SearchForArtists.js.map

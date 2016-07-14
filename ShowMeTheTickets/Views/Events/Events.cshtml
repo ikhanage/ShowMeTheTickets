@@ -1,0 +1,40 @@
+﻿@model IEnumerable<GogoKit.Models.Response.Event>
+
+@using System.Collections.Generic;
+@using System.Linq;
+
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Prices from</th>
+            <th>Name</th>
+            <th>Venue</th>
+            <th>Date of Event</th>
+            <th>Restrictions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var countryEvents in Model.GroupBy(x => x.Venue.Country.Name))
+        {
+            <tr>
+                <td><strong>@countryEvents.Key</strong></td>
+            </tr>
+            foreach (var countryEvent in countryEvents)
+            {
+                var cheapestHighlightClass = string.Empty;
+                if (countryEvents.Count() > 1 && countryEvents.First().MinTicketPrice.Amount == countryEvent.MinTicketPrice.Amount)
+                {
+                    cheapestHighlightClass = "success";
+                }
+                <tr class="@cheapestHighlightClass">
+                    <td>@countryEvent.MinTicketPrice.Display</td>
+                    <td>@countryEvent.Name</td>
+                    <td>@countryEvent.Venue.Name - <strong>@countryEvent.Venue.City</strong></td>
+                    <td>@countryEvent.StartDate.Value.ToString("dd/MM/yyyy hh:mm")</td>
+                    <td>@Html.Raw(countryEvent.Restrictions)</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
