@@ -1,13 +1,15 @@
 ﻿using GogoKit.Models.Response;
 using HalKit.Models.Response;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShowMeTheTickets.Interfaces
 {
-    public interface ISearhForArtistsHelper
+    public interface ISearchForArtistsHelper
     {
         Task<IEnumerable<SearchResult>> GetSearchResults(string query);
-        Task<IReadOnlyList<Event>> GetEvents(Link categoryLink);
+        Task<IEnumerable<Event>> GetEvents(Link categoryLink);
+        IEnumerable<Event> EventsGroupByCountrySortByPrice(IReadOnlyList<Event> events);
     }
 }

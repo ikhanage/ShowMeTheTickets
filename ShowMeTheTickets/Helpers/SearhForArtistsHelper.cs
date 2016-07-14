@@ -10,10 +10,10 @@ using HalKit.Models.Response;
 
 namespace ShowMeTheTickets.Helpers
 {
-    public class SearhForArtistsHelper : ISearhForArtistsHelper
+    public class SearchForArtistsHelper : ISearchForArtistsHelper
     {
         private readonly IViaGoGoHelper _viaGoGoHelper;
-        public SearhForArtistsHelper(IViaGoGoHelper viaGoGoHelper)
+        public SearchForArtistsHelper(IViaGoGoHelper viaGoGoHelper)
         {
             _viaGoGoHelper = viaGoGoHelper;
         }
@@ -24,10 +24,18 @@ namespace ShowMeTheTickets.Helpers
             return artists.Items.DistinctBy(x => x.Title).OrderBy(x => x.Category);
         }
 
-        public async Task<IReadOnlyList<Event>> GetEvents(Link categoryLink)
+        public async Task<IEnumerable<Event>> GetEvents(Link categoryLink)
         {
             var category = await _viaGoGoHelper.GetCategories(categoryLink);
-            return await _viaGoGoHelper.GetEvents(category.Id.Value);
+            var events = await _viaGoGoHelper.GetEvents(category.Id.Value);
+            return EventsGroupByCountrySortByPrice(events);
+        }
+
+        public IEnumerable<Event> EventsGroupByCountrySortByPrice(IReadOnlyList<Event> events)
+        {
+            return events.OrderBy(x => x.Venue.Country.Code)
+                .ThenBy(x => x.MinTicketPrice.Amount)
+                .ToList();
         }
     }
 }

@@ -7,6 +7,7 @@ using ShowMeTheTickets.Interfaces;
 using Moq;
 using GogoKit.Models.Response;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace ShowMeTheTickets.Tests.Helpers
 {
@@ -17,13 +18,180 @@ namespace ShowMeTheTickets.Tests.Helpers
     public class SearchForArtistsHelperTests
     {
         private readonly Mock<IViaGoGoHelper> _viaGoGoHelperMoq;
+        private static List<Event> Events;
         public SearchForArtistsHelperTests()
         {
             _viaGoGoHelperMoq = new Mock<IViaGoGoHelper>();
         }
 
-        private TestContext testContextInstance;
+        [ClassInitialize()]
+        public static void MyClassInitialize(TestContext testContext)
+        {
+            Events = new List<Event>()
+            {
+                new Event()
+                {
+                    Venue = new Venue()
+                    {
+                        Country = new Country()
+                        {
+                            Code = "UK"
+                        }
+                    },
+                    MinTicketPrice = new Money()
+                    {
+                        Amount = 20
+                    }
+                },
 
+                new Event()
+                {
+                    Venue = new Venue()
+                    {
+                        Country = new Country()
+                        {
+                            Code = "UK"
+                        }
+                    },
+                    MinTicketPrice = new Money()
+                    {
+                        Amount = 100
+                    }
+                },
+
+                new Event()
+                {
+                    Venue = new Venue()
+                    {
+                        Country = new Country()
+                        {
+                            Code = "France"
+                        }
+                    },
+                    MinTicketPrice = new Money()
+                    {
+                        Amount = 5
+                    }
+                },
+
+                new Event()
+                {
+                    Venue = new Venue()
+                    {
+                        Country = new Country()
+                        {
+                            Code = "UK"
+                        }
+                    },
+                    MinTicketPrice = new Money()
+                    {
+                        Amount = 5
+                    }
+                },
+
+                new Event()
+                {
+                    Venue = new Venue()
+                    {
+                        Country = new Country()
+                        {
+                            Code = "France"
+                        }
+                    },
+                    MinTicketPrice = new Money()
+                    {
+                        Amount = 20
+                    }
+                }
+            };
+        }
+
+        [TestMethod]
+        public void SearchForArtistResultsOutOfAlphaOrder()
+        {
+            var searchForArtistsHelper = new SearchForArtistsHelper(_viaGoGoHelperMoq.Object);
+
+            var actual = searchForArtistsHelper.EventsGroupByCountrySortByPrice(Events);
+
+            Equals(ExpectedOrder.ToList(), actual.ToList());
+        }
+
+        private readonly IEnumerable<Event> ExpectedOrder = new List<Event>()
+        {
+            new Event()
+            {
+                Venue = new Venue()
+                {
+                    Country = new Country()
+                    {
+                        Code = "France"
+                    }
+                },
+                MinTicketPrice = new Money()
+                {
+                    Amount = 5
+                }
+            },
+            new Event()
+            {
+                Venue = new Venue()
+                {
+                    Country = new Country()
+                    {
+                        Code = "France"
+                    }
+                },
+                MinTicketPrice = new Money()
+                {
+                    Amount = 20
+                }
+            },
+            new Event()
+            {
+                Venue = new Venue()
+                {
+                    Country = new Country()
+                    {
+                        Code = "UK"
+                    }
+                },
+                MinTicketPrice = new Money()
+                {
+                    Amount = 5
+                }
+            },
+            new Event()
+            {
+                Venue = new Venue()
+                {
+                    Country = new Country()
+                    {
+                        Code = "UK"
+                    }
+                },
+                MinTicketPrice = new Money()
+                {
+                    Amount = 20
+                }
+            },
+            new Event()
+            {
+                Venue = new Venue()
+                {
+                    Country = new Country()
+                    {
+                        Code = "UK"
+                    }
+                },
+                MinTicketPrice = new Money()
+                {
+                    Amount = 100
+                }
+            }
+        };
+
+        #region Additional test attributes
+        private TestContext testContextInstance;
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
@@ -39,14 +207,11 @@ namespace ShowMeTheTickets.Tests.Helpers
                 testContextInstance = value;
             }
         }
-
-        #region Additional test attributes
         //
         // You can use the following additional attributes as you write your tests:
         //
         // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
+
         //
         // Use ClassCleanup to run code after all tests in a class have run
         // [ClassCleanup()]
@@ -61,17 +226,5 @@ namespace ShowMeTheTickets.Tests.Helpers
         // public void MyTestCleanup() { }
         //
         #endregion
-
-        [TestMethod]
-        public void SearchForArtistResultsOutOfAlphaOrder()
-        {
-            var results = new PagedResource<SearchResult>();
-
-            _viaGoGoHelperMoq.Setup(x => x.GetSearchResults(It.IsAny<string>()))
-                .ReturnsAsync(results);
-                
-
-             var searchForArtistsHelper = new SearhForArtistsHelper(_viaGoGoHelperMoq.Object);
-        }
     }
 }
