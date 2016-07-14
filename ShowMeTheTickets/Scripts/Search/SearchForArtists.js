@@ -11,7 +11,8 @@ var SearchForArtists;
     SearchForArtists.SetBindings = SetBindings;
     function Search() {
         $('#ResultsContainer').remove();
-        $.blockUI();
+        var $searchContainer = $('#ArtistSearchContainer');
+        $searchContainer.block({ message: 'Searching for artists. Please wait.' });
         $.ajax({
             url: '/Search/ArtistSearchResults/',
             type: 'GET',
@@ -21,18 +22,26 @@ var SearchForArtists;
             error: function ShowAjaxError(jqXHR, textStatus, errorThrown) {
                 alert(jqXHR + ' ' + textStatus + ' ' + errorThrown);
             },
-            complete: function () { return $.unblockUI(); }
+            complete: function () { return $searchContainer.unblock(); }
         });
     }
     SearchForArtists.Search = Search;
     function SelectArtist(artist) {
+        var $searchContainer = $('#ArtistSearchContainer');
+        var $artistsResultsContainer = $('#ResultsContainer');
+        $artistsResultsContainer.block({ message: 'Searching for events.' });
+        $searchContainer.block({ message: null });
         $.ajax({
             url: '/Search/GetArtist/',
             type: 'GET',
             data: { artistTitle: artist },
             dataType: 'json',
             success: function () { return alert('happy'); },
-            error: function () { return alert(); }
+            error: function () { return alert(); },
+            complete: function () {
+                $searchContainer.unblock();
+                $artistsResultsContainer.unblock();
+            }
         });
     }
     SearchForArtists.SelectArtist = SelectArtist;

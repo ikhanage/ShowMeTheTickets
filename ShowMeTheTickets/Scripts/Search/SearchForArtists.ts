@@ -12,8 +12,9 @@ module SearchForArtists {
 
     export function Search() {
         $('#ResultsContainer').remove();
+        var $searchContainer = $('#ArtistSearchContainer');
 
-        $.blockUI();
+        $searchContainer.block({message: 'Searching for artists. Please wait.'});
         $.ajax({
             url: '/Search/ArtistSearchResults/',
             type: 'GET',
@@ -23,18 +24,28 @@ module SearchForArtists {
             error: function ShowAjaxError(jqXHR: any, textStatus: any, errorThrown: any) {
                 alert(jqXHR + ' ' + textStatus + ' ' + errorThrown);
             },
-            complete: () => $.unblockUI()
+            complete: () => $searchContainer.unblock()
         });
     }
 
     export function SelectArtist(artist: string) {
+        var $searchContainer = $('#ArtistSearchContainer');
+        var $artistsResultsContainer = $('#ResultsContainer');
+
+        $artistsResultsContainer.block({ message: 'Searching for events.' });
+        $searchContainer.block({ message: null });
+
         $.ajax({
             url: '/Search/GetArtist/',
             type: 'GET',
             data: { artistTitle: artist },
             dataType: 'json',
             success: () => alert('happy'),
-            error: () => alert()
+            error: () => alert(),
+            complete: function () {
+                $searchContainer.unblock();
+                $artistsResultsContainer.unblock();
+            }
         });
     }
 
