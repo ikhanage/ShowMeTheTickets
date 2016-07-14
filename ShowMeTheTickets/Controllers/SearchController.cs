@@ -37,5 +37,13 @@ namespace ShowMeTheTickets.Controllers
 
             return PartialView("~/Views/Events/ArtistEvents.cshtml", events);
         }
+
+        [HttpGet]
+        public async Task<ActionResult> GetEventTickets(int eventId)
+        {
+            var tickets = await _searhForArtistsHelper.GetEventTickets(eventId);
+
+            return PartialView("~/Views/Events/Tickets.cshtml", tickets);
+        }
     }
 }

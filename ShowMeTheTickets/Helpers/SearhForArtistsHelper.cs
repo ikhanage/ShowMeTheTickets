@@ -31,6 +31,12 @@ namespace ShowMeTheTickets.Helpers
             return EventsGroupByCountrySortByPrice(events);
         }
 
+        public async Task<IReadOnlyList<Listing>> GetEventTickets(int eventId)
+        {
+            var tickets = await _viaGoGoHelper.GetEventTickets(eventId);
+            return tickets.OrderBy(x => x.TicketPrice.Amount).ToList();
+        }
+
         public IEnumerable<Event> EventsGroupByCountrySortByPrice(IReadOnlyList<Event> events)
         {
             return events.OrderBy(x => x.Venue.Country.Code)

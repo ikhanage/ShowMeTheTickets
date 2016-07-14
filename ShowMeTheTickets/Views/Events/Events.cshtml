@@ -20,7 +20,7 @@
             @foreach (var countryEvents in Model.GroupBy(x => x.Venue.Country.Name))
             {
                 <tr>
-                    <td><strong>@countryEvents.Key</strong></td>
+                    <td colspan="5"><strong>@countryEvents.Key</strong></td>
                 </tr>
                 foreach (var countryEvent in countryEvents)
                 {
@@ -29,7 +29,7 @@
                     {
                         cheapestHighlightClass = "success";
                     }
-                    <tr class="@cheapestHighlightClass">
+                    <tr class="@cheapestHighlightClass" onclick="ArtistEvents.GetTickets(@countryEvent.Id)">
                         <td>@countryEvent.MinTicketPrice.Display</td>
                         <td>@countryEvent.Venue.Name - <strong>@countryEvent.Venue.City</strong></td>
                         <td>@countryEvent.StartDate.Value.ToString("dd/MM/yyyy hh:mm")</td>

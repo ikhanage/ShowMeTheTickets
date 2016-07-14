@@ -11,5 +11,6 @@ namespace ShowMeTheTickets.Interfaces
         Task<IEnumerable<SearchResult>> GetSearchResults(string query);
         Task<IEnumerable<Event>> GetEvents(Link categoryLink);
         IEnumerable<Event> EventsGroupByCountrySortByPrice(IReadOnlyList<Event> events);
+        Task<IReadOnlyList<Listing>> GetEventTickets(int eventId);
     }
 }
