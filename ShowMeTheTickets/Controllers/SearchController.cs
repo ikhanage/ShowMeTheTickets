@@ -1,10 +1,8 @@
 ﻿using GogoKit.Models.Response;
 using ShowMeTheTickets.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ShowMeTheTickets.Controllers
@@ -12,8 +10,8 @@ namespace ShowMeTheTickets.Controllers
     public class SearchController : Controller
     {
         private readonly string ArtistSearchResultsKey = "ArtistSearchResultsKey";
-        private readonly ISearhForArtistsHelper _searhForArtistsHelper;
-        public SearchController(ISearhForArtistsHelper searchForArtistHelper)
+        private readonly ISearchForArtistsHelper _searhForArtistsHelper;
+        public SearchController(ISearchForArtistsHelper searchForArtistHelper)
         {
             _searhForArtistsHelper = searchForArtistHelper;
         }

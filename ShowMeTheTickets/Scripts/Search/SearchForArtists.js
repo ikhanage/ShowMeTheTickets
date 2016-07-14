@@ -57,3 +57,4 @@ var SearchForArtists;
         this.Artist = ko.observable();
     }
 })(SearchForArtists || (SearchForArtists = {}));
+//# sourceMappingURL=SearchForArtists.js.map

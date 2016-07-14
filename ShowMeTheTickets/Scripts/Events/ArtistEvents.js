@@ -12,3 +12,4 @@ var ArtistEvents;
     function Bindings() {
     }
 })(ArtistEvents || (ArtistEvents = {}));
+//# sourceMappingURL=ArtistEvents.js.map
