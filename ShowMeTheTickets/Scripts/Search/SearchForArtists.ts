@@ -21,9 +21,7 @@ module SearchForArtists {
             data: { artistName: searchBindings.Artist() },
             dataType: 'html',
             success: DisplayArtistSearchResults,
-            error: function ShowAjaxError(jqXHR: any, textStatus: any, errorThrown: any) {
-                alert(jqXHR + ' ' + textStatus + ' ' + errorThrown);
-            },
+            error: () => alert('An error has occurred when looking for the artists "' + searchBindings.Artists() + '".'),
             complete: () => $searchContainer.unblock()
         });
     }
@@ -40,13 +38,18 @@ module SearchForArtists {
             type: 'GET',
             data: { artistTitle: artist },
             dataType: 'json',
-            success: () => alert('happy'),
-            error: () => alert(),
+            success: SelectedArtistEvents,
+            error: () => alert('An error has occurred'),
             complete: function () {
                 $searchContainer.unblock();
                 $artistsResultsContainer.unblock();
             }
         });
+    }
+
+    function SelectedArtistEvents(data) {
+        $('#ResultsContainer').remove();
+        $('#ArtistSearchContainer').append(data);
     }
 
     function ShowAjaxError(jqXHR: any, textStatus: any, errorThrown: any) {

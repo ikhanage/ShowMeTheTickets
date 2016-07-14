@@ -19,9 +19,7 @@ var SearchForArtists;
             data: { artistName: searchBindings.Artist() },
             dataType: 'html',
             success: DisplayArtistSearchResults,
-            error: function ShowAjaxError(jqXHR, textStatus, errorThrown) {
-                alert(jqXHR + ' ' + textStatus + ' ' + errorThrown);
-            },
+            error: function () { return alert('An error has occurred when looking for the artists "' + searchBindings.Artists() + '".'); },
             complete: function () { return $searchContainer.unblock(); }
         });
     }
@@ -36,8 +34,8 @@ var SearchForArtists;
             type: 'GET',
             data: { artistTitle: artist },
             dataType: 'json',
-            success: function () { return alert('happy'); },
-            error: function () { return alert(); },
+            success: SelectedArtistEvents,
+            error: function () { return alert('An error has occurred'); },
             complete: function () {
                 $searchContainer.unblock();
                 $artistsResultsContainer.unblock();
@@ -45,6 +43,10 @@ var SearchForArtists;
         });
     }
     SearchForArtists.SelectArtist = SelectArtist;
+    function SelectedArtistEvents(data) {
+        $('#ResultsContainer').remove();
+        $('#ArtistSearchContainer').append(data);
+    }
     function ShowAjaxError(jqXHR, textStatus, errorThrown) {
         alert(jqXHR + ' ' + textStatus + ' ' + errorThrown);
     }
@@ -55,4 +57,3 @@ var SearchForArtists;
         this.Artist = ko.observable();
     }
 })(SearchForArtists || (SearchForArtists = {}));
-//# sourceMappingURL=SearchForArtists.js.map

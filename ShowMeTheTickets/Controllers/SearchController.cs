@@ -37,7 +37,7 @@ namespace ShowMeTheTickets.Controllers
 
             var events = await _searhForArtistsHelper.GetEvents(link);
 
-            throw new NotImplementedException();
+            return PartialView("~/Views/Events/ArtistEvents.cshtml", events);
         }
     }
 }
