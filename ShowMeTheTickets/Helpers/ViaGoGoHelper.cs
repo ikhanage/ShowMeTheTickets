@@ -1,5 +1,4 @@
 ﻿using GogoKit;
-using GogoKit.Models.Request;
 using GogoKit.Models.Response;
 using HalKit.Models.Response;
 using ShowMeTheTickets.Interfaces;
@@ -29,6 +28,13 @@ namespace ShowMeTheTickets.Helpers
             await SetUpClient();
             var events = await ViagogoClient.Events.GetAllByCategoryAsync(categoryId);
             return events;
+        }
+
+        public async Task<IReadOnlyList<Listing>> GetEventTickets(int eventId)
+        {
+            await SetUpClient();
+            var tickets = await ViagogoClient.Listings.GetAllByEventAsync(eventId);
+            return tickets;
         }
     }
 }
