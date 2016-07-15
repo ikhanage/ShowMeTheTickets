@@ -1,28 +1,26 @@
 ﻿@model IEnumerable<GogoKit.Models.Response.Listing>
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
-            <th></th>
             <th></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var ticketGroup in Model.GroupBy(x => x.TicketType.Name))
+        @foreach (var ticketGroup in Model.OrderBy(x => x.Seating.Section).GroupBy(x => x.Seating.Section))
         {
             var ticket = ticketGroup.FirstOrDefault();
             if (ticket == null || !ticketGroup.Any()) { continue; }
             if (!string.IsNullOrWhiteSpace(ticketGroup.Key))
             {
                 <tr>
-                    <td colspan="3"><strong>@ticketGroup.Key</strong></td>
+                    <td colspan="2">Section: <strong>@ticketGroup.Key</strong></td>
                 </tr>
             }
             <tr>
                 <td>@ticket.TicketPrice.Display</td>
-                <td>Section: @ticket.Seating.Section Row: @ticket.Seating.Row</td>
-                <td>Number of Tickets: @ticket.NumberOfTickets</td>
+                <td>Number of Tickets: @ticketGroup.Sum(x => x.NumberOfTickets)</td>
             </tr>
         }
     </tbody>

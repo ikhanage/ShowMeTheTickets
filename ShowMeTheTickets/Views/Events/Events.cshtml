@@ -29,7 +29,7 @@
                     {
                         cheapestHighlightClass = "success";
                     }
-                    <tr class="@cheapestHighlightClass" onclick="ArtistEvents.GetTickets(@countryEvent.Id)">
+                    <tr class="@cheapestHighlightClass" onclick="ArtistEvents.GetTickets(@countryEvent.Id)" style="cursor: pointer">
                         <td>@countryEvent.MinTicketPrice.Display</td>
                         <td>@countryEvent.Venue.Name - <strong>@countryEvent.Venue.City</strong></td>
                         <td>@countryEvent.StartDate.Value.ToString("dd/MM/yyyy hh:mm")</td>
