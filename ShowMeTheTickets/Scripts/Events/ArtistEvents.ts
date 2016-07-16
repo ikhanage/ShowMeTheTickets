@@ -39,9 +39,9 @@ module ArtistEvents {
     }
 
     export function GetPageOfResults(pageNumber: number) {
-        $('.ticketRow').hide();
+        $('.ticketsRow').hide();
         $('.countryRow').hide();
-        var $displayRows = $('.ticketRow[data-page="' + pageNumber + '"]');
+        var $displayRows = $('.ticketsRow[data-page="' + pageNumber + '"]');
         $displayRows.show();
 
         $displayRows.each(function () {
@@ -49,7 +49,7 @@ module ArtistEvents {
             $('.countryRow[data-country="' + countryDisplayCode + '"]').show();
         });
 
-        $('#NextEventsPage').toggle($('.ticketRow[data-page="' + (pageNumber + 1) + '"]').length > 0);
+        $('#NextEventsPage').toggle($('.ticketsRow[data-page="' + (pageNumber + 1) + '"]').length > 0);
         $('#PrevEventsPage').toggle(pageNumber > 1);
 
         $('#TicketsContainer').html('');

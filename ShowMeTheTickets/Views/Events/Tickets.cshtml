@@ -9,27 +9,36 @@ lol: <span><strong data-bind="text: MinTicketsToShow"></strong></span>
         </tr>
     </thead>
     <tbody>
+        @{
+            var page = 0;
+            var i = 0;
+        }
         @foreach (var ticketGroup in Model.OrderBy(x => x.Seating.Section).GroupBy(x => x.Seating.Section))
         {
+            if (i % 10 == 0) { page++; }
             var ticketNumber = ticketGroup.Sum(x => x.NumberOfTickets);
             var ticket = ticketGroup.FirstOrDefault();
             if (ticket == null || !ticketGroup.Any()) { continue; }
             if (!string.IsNullOrWhiteSpace(ticketGroup.Key))
             {
-                <tr data-bind="visible: @ticketNumber > MinTicketsToShow()">
+                <tr class="ticketRow" data-ticketPage="@page" data-bind="visible: @ticketNumber > MinTicketsToShow()">
                     <td colspan="2">Section: <strong>@ticketGroup.Key</strong></td>
                 </tr>
             }
-            <tr data-bind="visible: @ticketNumber > MinTicketsToShow">
+            <tr class="ticketRow" data-ticketPage="@page" data-bind="visible: @ticketNumber > MinTicketsToShow">
                 <td>@ticket.TicketPrice.Display</td>
                 <td>Number of Tickets: @ticketNumber</td>
             </tr>
+            i++;
         }
     </tbody>
 </table>
 
+<input id="PrevTicketsPage" type="button" style="display:none" onclick="EventTickets.GetPrevPage()" value="prev" />
+<input id="NextTicketsPage" type="button" onclick="EventTickets.GetNextPage()" value="next" />
+
 <script>
     $(function () {
-        EventTickets.SetBindings();
+        EventTickets.GetPageOfResults(1);
     });
 </script>

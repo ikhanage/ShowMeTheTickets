@@ -67,6 +67,6 @@ module SearchForArtists {
     function Bindings() {
         this.Artist = ko.observable();
         this.Page = ko.observable(1);
-        this.ShowPrev = ko.observable(false);
+        this.TicketPage = ko.observable(1);
     }
 }
