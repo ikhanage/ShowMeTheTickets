@@ -18,13 +18,13 @@ namespace ShowMeTheTickets.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetArtistEvents(string artistTitle)
+        public async Task<ActionResult> GetArtistEvents(string artistTitle, string dateFrom)
         {
             var artists = (IEnumerable<SearchResult>)Session[Constants.Session.ArtistSearchResultsKey];
 
             var link = artists.FirstOrDefault(x => x.Title == artistTitle).CategoryLink;
 
-            var events = await _eventsHelper.GetEvents(link);
+            var events = await _eventsHelper.GetEvents(link, dateFrom);
 
             return PartialView("~/Views/Events/ArtistEvents.cshtml", events);
         }

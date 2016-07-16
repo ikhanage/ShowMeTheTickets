@@ -7,7 +7,7 @@ namespace ShowMeTheTickets.Interfaces
 {
     public interface IEventsHelper
     {
-        Task<IEnumerable<Event>> GetEvents(Link categoryLink);
-        IEnumerable<Event> EventsGroupByCountrySortByPrice(IReadOnlyList<Event> events);
+        Task<IEnumerable<Event>> GetEvents(Link categoryLink, string dateFrom);
+        IEnumerable<Event> EventsGroupByCountrySortByPrice(IEnumerable<Event> events);
     }
 }

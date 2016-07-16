@@ -34,7 +34,7 @@ var SearchForArtists;
         $.ajax({
             url: '/Events/GetArtistEvents/',
             type: 'GET',
-            data: { artistTitle: artist },
+            data: { artistTitle: artist, dateFrom: SearchForArtists.searchBindings.DateFrom() },
             dataType: 'html',
             success: SelectedArtistEvents,
             error: ShowAjaxError,
@@ -61,6 +61,7 @@ var SearchForArtists;
         this.Page = ko.observable(1);
         this.TicketPage = ko.observable(1);
         this.MinTickets = ko.observable(0);
+        this.DateFrom = ko.observable();
     }
 })(SearchForArtists || (SearchForArtists = {}));
 //# sourceMappingURL=SearchForArtists.js.map

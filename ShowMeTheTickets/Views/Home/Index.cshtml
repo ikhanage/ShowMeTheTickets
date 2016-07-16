@@ -6,11 +6,16 @@
 <div class="row" id="ArtistSearchContainer">
     <div class="col-md-6 col-md-offset-3 form-group">
         <label for="ArtistInput">Find events for an artist:</label>
-        <input type="text" class="form-control" id="ArtistInput" placeholder="eg. Queen" data-bind="textInput: Artist">
-        <input class="btn btn-primary" type="button" value="Search" onclick="SearchForArtists.Search()" />
+        <input type="text" class="form-control" id="ArtistInput" placeholder="eg. Queen" data-bind="textInput: Artist">        
         <br />
+
         <label for="MinTicketInput">Enter your minimum tickets (0 will return all):</label>        
         <input id="MinTicketInput" class="form-control" type="number" data-bind="value: MinTickets" />
+
+        <label for="DateFromInput">Enter the date you want to search from (Entering no date will return all available dates):</label>
+        <input id="DateFromInput" class="form-control" type="date" data-bind="value: DateFrom" />
+
+        <input class="btn btn-primary" type="button" value="Search" onclick="SearchForArtists.Search()" />
     </div>
 </div>
 

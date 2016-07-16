@@ -16,14 +16,15 @@ namespace ShowMeTheTickets.Helpers
         {
             _viaGoGoHelper = viaGoGoHelper;
         }
-        public async Task<IEnumerable<Event>> GetEvents(Link categoryLink)
+        public async Task<IEnumerable<Event>> GetEvents(Link categoryLink, string dateFrom)
         {
             var category = await _viaGoGoHelper.GetCategories(categoryLink);
             var events = await _viaGoGoHelper.GetEvents(category.Id.Value);
-            return EventsGroupByCountrySortByPrice(events);
+
+            return EventsGroupByCountrySortByPrice(FilterEventsByDate(events, dateFrom));
         }
 
-        public IEnumerable<Event> EventsGroupByCountrySortByPrice(IReadOnlyList<Event> events)
+        public IEnumerable<Event> EventsGroupByCountrySortByPrice(IEnumerable<Event> events)
         {
             events = events.Where(x => 
                 x.Venue != null && x.Venue.Country != null &&
@@ -33,6 +34,23 @@ namespace ShowMeTheTickets.Helpers
             return events.OrderBy(x => x.Venue.Country.Code)
                 .ThenBy(x => x.MinTicketPrice.Amount)
                 .ToList();
+        }
+
+        private IEnumerable<Event> FilterEventsByDate(IEnumerable<Event> events, string dateFrom)
+        {
+            if (string.IsNullOrWhiteSpace(dateFrom))
+                return events;
+
+            DateTime dateTimeFrom;
+            var validDate = DateTime.TryParse(dateFrom, out dateTimeFrom);
+
+            if (!validDate)
+                return events;
+
+            return events.Where(x =>
+                x.StartDate != null && x.StartDate.HasValue &&
+                x.StartDate.Value >= dateTimeFrom
+            );
         }
     }
 }
