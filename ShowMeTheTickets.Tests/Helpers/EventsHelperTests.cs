@@ -8,6 +8,7 @@ using Moq;
 using GogoKit.Models.Response;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Web;
 
 namespace ShowMeTheTickets.Tests.Helpers
 {
@@ -17,11 +18,13 @@ namespace ShowMeTheTickets.Tests.Helpers
     [TestClass]
     public class EventsHelperTests
     {
+        private readonly EventsHelper _eventsHelper;
         private readonly Mock<IViaGoGoHelper> _viaGoGoHelperMoq;
         private static List<Event> Events;
         public EventsHelperTests()
         {
             _viaGoGoHelperMoq = new Mock<IViaGoGoHelper>();
+            _eventsHelper = new EventsHelper(_viaGoGoHelperMoq.Object);
         }
 
         [ClassInitialize()]
@@ -109,11 +112,25 @@ namespace ShowMeTheTickets.Tests.Helpers
         [TestMethod]
         public void SearchForArtistResultsOutOfAlphaOrder()
         {
-            var searchForArtistsHelper = new EventsHelper(_viaGoGoHelperMoq.Object);
-
-            var actual = searchForArtistsHelper.EventsGroupByCountrySortByPrice(Events);
+            var actual = _eventsHelper.EventsGroupByCountrySortByPrice(Events);
 
             Equals(ExpectedOrder.ToList(), actual.ToList());
+        }
+
+        [TestMethod]
+        public void GetNext10Events()
+        {
+            var events = new List<Event>();
+
+            for(var i = 0; i < 100; i++)
+            {
+                events.Add(new Event(){ Id = i });
+            }
+            HttpContext.Current.Session.Add(Constants.Session.ArtistEventsResultsKey, events);
+
+            var artistsEvents = _eventsHelper.GetNext10Events(1);
+
+            Equals(events.Take(10), artistsEvents);
         }
 
         private readonly IEnumerable<Event> ExpectedOrder = new List<Event>()
