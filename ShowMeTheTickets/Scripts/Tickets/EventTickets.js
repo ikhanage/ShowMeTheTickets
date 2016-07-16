@@ -11,4 +11,3 @@ var EventTickets;
         //this.MinTicketsToShow = ko.observable();
     }
 })(EventTickets || (EventTickets = {}));
-//# sourceMappingURL=EventTickets.js.map

@@ -51,6 +51,8 @@ module ArtistEvents {
 
         $('#NextEventsPage').toggle($('.ticketRow[data-page="' + (pageNumber + 1) + '"]').length > 0);
         $('#PrevEventsPage').toggle(pageNumber > 1);
+
+        $('#TicketsContainer').html('');
     }
 
     function DisplayEventTickets(data) {

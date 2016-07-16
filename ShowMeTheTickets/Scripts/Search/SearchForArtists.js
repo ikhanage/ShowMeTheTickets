@@ -62,4 +62,3 @@ var SearchForArtists;
         this.ShowPrev = ko.observable(false);
     }
 })(SearchForArtists || (SearchForArtists = {}));
-//# sourceMappingURL=SearchForArtists.js.map
