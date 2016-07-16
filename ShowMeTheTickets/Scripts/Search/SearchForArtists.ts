@@ -3,7 +3,7 @@
 /// <reference path="../typings/knockout/knockout.d.ts" />
 
 module SearchForArtists {
-    var searchBindings;
+    export var searchBindings;
     
     export function SetBindings() {
         searchBindings = new Bindings();
@@ -11,8 +11,12 @@ module SearchForArtists {
     }
 
     export function Search() {
+        if (!searchBindings.Artist() ||searchBindings.Artist() == '')
+            return alert('Please enter a search term.');
+
         $('#ResultsContainer').remove();
         var $searchContainer = $('#ArtistSearchContainer');
+        SearchForArtists.searchBindings.Page(0);
 
         $searchContainer.block({message: 'Searching for artists. Please wait.'});
         $.ajax({
@@ -62,5 +66,7 @@ module SearchForArtists {
 
     function Bindings() {
         this.Artist = ko.observable();
+        this.Page = ko.observable(1);
+        this.ShowPrev = ko.observable(false);
     }
 }

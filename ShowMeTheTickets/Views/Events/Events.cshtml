@@ -17,25 +17,31 @@
             </tr>
         </thead>
         <tbody>
+            @{
+                var i = 0;
+                var page = 0;
+            }
             @foreach (var countryEvents in Model.GroupBy(x => x.Venue.Country.Name))
             {
-                <tr>
+                <tr class="countryRow" data-country="@countryEvents.Key">
                     <td colspan="5"><strong>@countryEvents.Key</strong></td>
                 </tr>
                 foreach (var countryEvent in countryEvents)
                 {
+                    if (i % 10 == 0) { page++; }
                     var cheapestHighlightClass = string.Empty;
                     if (countryEvents.Count() > 1 && countryEvents.First().MinTicketPrice.Amount == countryEvent.MinTicketPrice.Amount)
                     {
                         cheapestHighlightClass = "success";
                     }
-                    <tr class="@cheapestHighlightClass" onclick="ArtistEvents.GetTickets(@countryEvent.Id)" style="cursor: pointer">
+                    <tr class="@cheapestHighlightClass ticketRow" onclick="ArtistEvents.GetTickets(@countryEvent.Id)" style="cursor: pointer" data-country="@countryEvents.Key" data-page="@page">
                         <td>@countryEvent.MinTicketPrice.Display</td>
                         <td>@countryEvent.Venue.Name - <strong>@countryEvent.Venue.City</strong></td>
                         <td>@countryEvent.StartDate.Value.ToString("dd/MM/yyyy hh:mm")</td>
                         <td>@Html.Raw(countryEvent.Restrictions)</td>
                         <td>@countryEvent.NumberOfTickets</td>
                     </tr>
+                    i++;
                 }
             }
         </tbody>
@@ -43,5 +49,11 @@
 }
 else
 {
-    <strong>No tickets available for @Model.First().Name</strong>
+    <strong>No tickets available</strong>
 }
+
+<script type="text/javascript">
+    $(function () {
+        ArtistEvents.GetPageOfResults(1);
+    });
+</script>

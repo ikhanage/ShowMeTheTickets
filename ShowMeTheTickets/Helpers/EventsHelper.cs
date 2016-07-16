@@ -25,20 +25,14 @@ namespace ShowMeTheTickets.Helpers
 
         public IEnumerable<Event> EventsGroupByCountrySortByPrice(IReadOnlyList<Event> events)
         {
+            events = events.Where(x => 
+                x.Venue != null && x.Venue.Country != null &&
+                x.MinTicketPrice != null && x.MinTicketPrice.Amount != null
+            ).ToList();
+
             return events.OrderBy(x => x.Venue.Country.Code)
                 .ThenBy(x => x.MinTicketPrice.Amount)
                 .ToList();
-        }
-
-        public IEnumerable<Event> Get10Events(IEnumerable<Event> events, int page)
-        {
-            if (events == null) return new List<Event>();
-            var skip = page * 10;
-
-            if (skip >= events.Count())
-                throw new IndexOutOfRangeException("Sorry but there are no more tickets to display.");
-
-            return events.Skip(skip).Take(10);
         }
     }
 }

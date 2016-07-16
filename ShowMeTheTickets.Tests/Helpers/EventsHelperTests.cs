@@ -118,55 +118,80 @@ namespace ShowMeTheTickets.Tests.Helpers
         }
 
         [TestMethod]
-        public void Get10EventsPage1Test()
-        {
-            var events = new List<Event>();
-
-            for(var i = 0; i < 100; i++)
+        public void CountryIsNull() { 
+            var nullEvents = new List<Event>
             {
-                events.Add(new Event(){ Id = i });
-            }           
+                new Event()
+                {
+                    Venue = new Venue()
+                    {
+                        
+                    },
+                    MinTicketPrice = new Money()
+                    {
+                        Amount = 5
+                    }
+                }
+            };
+            var actual = _eventsHelper.EventsGroupByCountrySortByPrice(nullEvents);
 
-            var artistsEvents = _eventsHelper.Get10Events(events, 1);
-
-            Equals(events.Take(10), artistsEvents);
+            Assert.IsTrue(actual.Count() == 0);
         }
 
         [TestMethod]
-        public void Get10EventsPage9Test()
+        public void VenueIsNull()
         {
-            var events = new List<Event>();
-
-            for (var i = 0; i < 100; i++)
+            var nullEvents = new List<Event>
             {
-                events.Add(new Event() { Id = i });
+                new Event()
+                {                    
+                    MinTicketPrice = new Money()
+                    {
+                        Amount = 5
+                    }
+                }
+            };
+            var actual = _eventsHelper.EventsGroupByCountrySortByPrice(nullEvents);
+
+            Assert.IsTrue(actual.Count() == 0);
+        }
+
+        [TestMethod]
+        public void MinPriceIsNull()
+        {
+            var nullEvents = new List<Event>
+            {
+                new Event()
+                {
+                    Venue = new Venue()
+                    {
+                        Country = new Country()
+                        {
+                            Code = "France"
+                        }
+                    }                    
+                }
+            };
+            var actual = _eventsHelper.EventsGroupByCountrySortByPrice(nullEvents);
+
+            Assert.IsTrue(actual.Count() == 0);
+        }        
+
+        private bool CompareListIds(IEnumerable<Event> expected, IEnumerable<Event> actual)
+        {
+            var expectedArray = expected.ToArray();
+            var actualArray = actual.ToArray();
+
+            if (expectedArray.Length != actualArray.Length)
+                return false;
+
+            for(var i = 0; i < expectedArray.Length; i++)
+            {
+                if (expectedArray[i].Id != actualArray[i].Id)
+                    return false;
             }
 
-            var artistsEvents = _eventsHelper.Get10Events(events, 9);
-
-            CollectionAssert.AreEqual(events.Skip(90).Take(10).ToList(), artistsEvents.ToList());
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(IndexOutOfRangeException))]
-        public void Get10EventsOutOfIndexTest()
-        {
-            var events = new List<Event>();
-
-            for (var i = 0; i < 100; i++)
-            {
-                events.Add(new Event() { Id = i });
-            }
-
-            var artistsEvents = _eventsHelper.Get10Events(events, 10);
-        }
-
-        [TestMethod]
-        public void Get10EventsNullTest()
-        {
-            var artistsEvents = _eventsHelper.Get10Events(null, 1);
-
-            Equals(new List<Event>(), artistsEvents);
+            return true;
         }
 
         private readonly IEnumerable<Event> ExpectedOrder = new List<Event>()

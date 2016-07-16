@@ -16,6 +16,9 @@ namespace ShowMeTheTickets.Helpers
         }
         public async Task<IEnumerable<SearchResult>> GetSearchResults(string query)
         {
+            if (string.IsNullOrEmpty(query))
+                return new List<SearchResult>();
+
             var artists = await _viaGoGoHelper.GetSearchResults(query);
 
             return artists.Items.DistinctBy(x => x.Title).OrderBy(x => x.Category);

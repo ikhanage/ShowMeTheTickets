@@ -16,6 +16,38 @@ var ArtistEvents;
         });
     }
     ArtistEvents.GetTickets = GetTickets;
+    function GetNextPage() {
+        var currentPage = SearchForArtists.searchBindings.Page();
+        if (currentPage == 0)
+            currentPage = 1;
+        var pageIncrement = currentPage + 1;
+        SearchForArtists.searchBindings.Page(pageIncrement);
+        GetPageOfResults(pageIncrement);
+    }
+    ArtistEvents.GetNextPage = GetNextPage;
+    function GetPrevPage() {
+        var pageIncrement = SearchForArtists.searchBindings.Page() - 1;
+        if (pageIncrement < 1) {
+            SearchForArtists.searchBindings.Page(1);
+            pageIncrement = 1;
+        }
+        SearchForArtists.searchBindings.Page(pageIncrement);
+        GetPageOfResults(pageIncrement);
+    }
+    ArtistEvents.GetPrevPage = GetPrevPage;
+    function GetPageOfResults(pageNumber) {
+        $('.ticketRow').hide();
+        $('.countryRow').hide();
+        var $displayRows = $('.ticketRow[data-page="' + pageNumber + '"]');
+        $displayRows.show();
+        $displayRows.each(function () {
+            var countryDisplayCode = $(this).data('country');
+            $('.countryRow[data-country="' + countryDisplayCode + '"]').show();
+        });
+        $('#NextEventsPage').toggle($('.ticketRow[data-page="' + (pageNumber + 1) + '"]').length > 0);
+        $('#PrevEventsPage').toggle(pageNumber > 1);
+    }
+    ArtistEvents.GetPageOfResults = GetPageOfResults;
     function DisplayEventTickets(data) {
         $('#TicketsContainer').html(data);
     }

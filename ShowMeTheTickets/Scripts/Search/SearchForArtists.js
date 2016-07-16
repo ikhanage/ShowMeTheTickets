@@ -3,23 +3,25 @@
 /// <reference path="../typings/knockout/knockout.d.ts" />
 var SearchForArtists;
 (function (SearchForArtists) {
-    var searchBindings;
     function SetBindings() {
-        searchBindings = new Bindings();
-        ko.applyBindings(searchBindings);
+        SearchForArtists.searchBindings = new Bindings();
+        ko.applyBindings(SearchForArtists.searchBindings);
     }
     SearchForArtists.SetBindings = SetBindings;
     function Search() {
+        if (!SearchForArtists.searchBindings.Artist() || SearchForArtists.searchBindings.Artist() == '')
+            return alert('Please enter a search term.');
         $('#ResultsContainer').remove();
         var $searchContainer = $('#ArtistSearchContainer');
+        SearchForArtists.searchBindings.Page(0);
         $searchContainer.block({ message: 'Searching for artists. Please wait.' });
         $.ajax({
             url: '/Search/ArtistSearchResults/',
             type: 'GET',
-            data: { artistName: searchBindings.Artist() },
+            data: { artistName: SearchForArtists.searchBindings.Artist() },
             dataType: 'html',
             success: DisplayArtistSearchResults,
-            error: function () { return alert('An error has occurred when looking for the artists "' + searchBindings.Artists() + '".'); },
+            error: function () { return alert('An error has occurred when looking for the artists "' + SearchForArtists.searchBindings.Artists() + '".'); },
             complete: function () { return $searchContainer.unblock(); }
         });
     }
@@ -56,6 +58,8 @@ var SearchForArtists;
     }
     function Bindings() {
         this.Artist = ko.observable();
+        this.Page = ko.observable(1);
+        this.ShowPrev = ko.observable(false);
     }
 })(SearchForArtists || (SearchForArtists = {}));
 //# sourceMappingURL=SearchForArtists.js.map

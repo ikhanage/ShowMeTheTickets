@@ -2,10 +2,14 @@
 
 <div id="EventsAndTicketsContainer" class="row">
     <div id="EventsContainer" class="col-md-6">
-        @Html.Partial("~/Views/Events/Events.cshtml", Model)
+        <div id="EventsTableContainer">
+            @Html.Partial("~/Views/Events/Events.cshtml", Model)
+            <input id="PrevEventsPage" type="button" style="display:none" onclick="ArtistEvents.GetPrevPage()" value="prev" />
+                <input id="NextEventsPage" type="button" onclick="ArtistEvents.GetNextPage()" value="next" />
+        </div>
     </div>
-    
+
     <div id="TicketsContainer" class="col-md-6">
-        
+
     </div>
 </div>
