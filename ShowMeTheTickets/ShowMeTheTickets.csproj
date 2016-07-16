@@ -248,17 +248,24 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Constants\Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EventsHelper.cs" />
     <Compile Include="Helpers\SearhForArtistsHelper.cs" />
+    <Compile Include="Helpers\TicketsHelper.cs" />
     <Compile Include="Helpers\ViaGoGoBase.cs" />
     <Compile Include="Helpers\ViaGoGoHelper.cs" />
+    <Compile Include="Interfaces\IEventsHelper.cs" />
     <Compile Include="Interfaces\ISearhForArtistsHelper.cs" />
+    <Compile Include="Interfaces\ITicketsHelper.cs" />
     <Compile Include="Interfaces\IViaGoGoHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -336,6 +343,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Tickets\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -350,6 +358,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Events\ArtistEvents.ts" />
     <TypeScriptCompile Include="Scripts\Search\SearchForArtists.ts" />
+    <TypeScriptCompile Include="Scripts\Tickets\EventTickets.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery.blockUI\jquery.blockUI.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />

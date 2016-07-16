@@ -6,7 +6,7 @@ var ArtistEvents;
         var $ticketsContainer = $('#EventsAndTicketsContainer');
         $ticketsContainer.block({ message: null });
         $.ajax({
-            url: '/Search/GetEventTickets/',
+            url: '/Tickets/GetEventTickets/',
             type: 'GET',
             data: { eventId: eventId },
             dataType: 'html',

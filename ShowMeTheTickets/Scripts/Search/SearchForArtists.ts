@@ -34,7 +34,7 @@ module SearchForArtists {
         $searchContainer.block({ message: null });
 
         $.ajax({
-            url: '/Search/GetArtist/',
+            url: '/Events/GetArtistEvents/',
             type: 'GET',
             data: { artistTitle: artist },
             dataType: 'html',

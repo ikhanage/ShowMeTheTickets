@@ -22,26 +22,6 @@ namespace ShowMeTheTickets.Helpers
             var artists = await _viaGoGoHelper.GetSearchResults(query);
 
             return artists.Items.DistinctBy(x => x.Title).OrderBy(x => x.Category);
-        }
-
-        public async Task<IEnumerable<Event>> GetEvents(Link categoryLink)
-        {
-            var category = await _viaGoGoHelper.GetCategories(categoryLink);
-            var events = await _viaGoGoHelper.GetEvents(category.Id.Value);
-            return EventsGroupByCountrySortByPrice(events);
-        }
-
-        public async Task<IReadOnlyList<Listing>> GetEventTickets(int eventId)
-        {
-            var tickets = await _viaGoGoHelper.GetEventTickets(eventId);
-            return tickets.OrderBy(x => x.TicketPrice.Amount).ToList();
-        }
-
-        public IEnumerable<Event> EventsGroupByCountrySortByPrice(IReadOnlyList<Event> events)
-        {
-            return events.OrderBy(x => x.Venue.Country.Code)
-                .ThenBy(x => x.MinTicketPrice.Amount)
-                .ToList();
-        }
+        }        
     }
 }
