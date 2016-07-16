@@ -118,19 +118,55 @@ namespace ShowMeTheTickets.Tests.Helpers
         }
 
         [TestMethod]
-        public void GetNext10Events()
+        public void Get10EventsPage1Test()
         {
             var events = new List<Event>();
 
             for(var i = 0; i < 100; i++)
             {
                 events.Add(new Event(){ Id = i });
-            }
-            HttpContext.Current.Session.Add(Constants.Session.ArtistEventsResultsKey, events);
+            }           
 
-            var artistsEvents = _eventsHelper.GetNext10Events(1);
+            var artistsEvents = _eventsHelper.Get10Events(events, 1);
 
             Equals(events.Take(10), artistsEvents);
+        }
+
+        [TestMethod]
+        public void Get10EventsPage9Test()
+        {
+            var events = new List<Event>();
+
+            for (var i = 0; i < 100; i++)
+            {
+                events.Add(new Event() { Id = i });
+            }
+
+            var artistsEvents = _eventsHelper.Get10Events(events, 9);
+
+            CollectionAssert.AreEqual(events.Skip(90).Take(10).ToList(), artistsEvents.ToList());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        public void Get10EventsOutOfIndexTest()
+        {
+            var events = new List<Event>();
+
+            for (var i = 0; i < 100; i++)
+            {
+                events.Add(new Event() { Id = i });
+            }
+
+            var artistsEvents = _eventsHelper.Get10Events(events, 10);
+        }
+
+        [TestMethod]
+        public void Get10EventsNullTest()
+        {
+            var artistsEvents = _eventsHelper.Get10Events(null, 1);
+
+            Equals(new List<Event>(), artistsEvents);
         }
 
         private readonly IEnumerable<Event> ExpectedOrder = new List<Event>()

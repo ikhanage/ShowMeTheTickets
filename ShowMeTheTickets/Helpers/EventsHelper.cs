@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ShowMeTheTickets.Helpers
 {
@@ -29,15 +30,15 @@ namespace ShowMeTheTickets.Helpers
                 .ToList();
         }
 
-        public IEnumerable<Event> GetNext10Events(int page)
+        public IEnumerable<Event> Get10Events(IEnumerable<Event> events, int page)
         {
+            if (events == null) return new List<Event>();
+            var skip = page * 10;
 
-            throw new NotImplementedException();
-        }
+            if (skip >= events.Count())
+                throw new IndexOutOfRangeException("Sorry but there are no more tickets to display.");
 
-        public IEnumerable<Event> GetPrev10Events(int page)
-        {
-            throw new NotImplementedException();
+            return events.Skip(skip).Take(10);
         }
     }
 }
