@@ -9,7 +9,7 @@ module ArtistEvents {
         $.ajax({
             url: '/Tickets/GetEventTickets/',
             type: 'GET',
-            data: { eventId: eventId },
+            data: { eventId: eventId, minTickets: SearchForArtists.searchBindings.MinTickets() },
             dataType: 'html',
             success: DisplayEventTickets,
             error: ShowAjaxError,

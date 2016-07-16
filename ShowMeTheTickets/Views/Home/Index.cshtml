@@ -8,6 +8,9 @@
         <label for="ArtistInput">Find events for an artist:</label>
         <input type="text" class="form-control" id="ArtistInput" placeholder="eg. Queen" data-bind="textInput: Artist">
         <input class="btn btn-primary" type="button" value="Search" onclick="SearchForArtists.Search()" />
+        <br />
+        <label for="MinTicketInput">Enter your minimum tickets (0 will return all):</label>        
+        <input id="MinTicketInput" class="form-control" type="number" data-bind="value: MinTickets" />
     </div>
 </div>
 

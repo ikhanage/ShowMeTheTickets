@@ -1,6 +1,4 @@
 ﻿@model IEnumerable<GogoKit.Models.Response.Listing>
-<input data-bind="textInput: MinTicketsToShow"/>
-lol: <span><strong data-bind="text: MinTicketsToShow"></strong></span>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -21,11 +19,11 @@ lol: <span><strong data-bind="text: MinTicketsToShow"></strong></span>
             if (ticket == null || !ticketGroup.Any()) { continue; }
             if (!string.IsNullOrWhiteSpace(ticketGroup.Key))
             {
-                <tr class="ticketRow" data-ticketPage="@page" data-bind="visible: @ticketNumber > MinTicketsToShow()">
+                <tr class="ticketRow" data-ticketPage="@page">
                     <td colspan="2">Section: <strong>@ticketGroup.Key</strong></td>
                 </tr>
             }
-            <tr class="ticketRow" data-ticketPage="@page" data-bind="visible: @ticketNumber > MinTicketsToShow">
+            <tr class="ticketRow" data-ticketPage="@page">
                 <td>@ticket.TicketPrice.Display</td>
                 <td>Number of Tickets: @ticketNumber</td>
             </tr>

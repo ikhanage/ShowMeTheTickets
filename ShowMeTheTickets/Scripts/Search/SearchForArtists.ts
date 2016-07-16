@@ -68,5 +68,6 @@ module SearchForArtists {
         this.Artist = ko.observable();
         this.Page = ko.observable(1);
         this.TicketPage = ko.observable(1);
+        this.MinTickets = ko.observable(0);
     }
 }

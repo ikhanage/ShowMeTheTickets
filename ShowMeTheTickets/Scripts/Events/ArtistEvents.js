@@ -8,7 +8,7 @@ var ArtistEvents;
         $.ajax({
             url: '/Tickets/GetEventTickets/',
             type: 'GET',
-            data: { eventId: eventId },
+            data: { eventId: eventId, minTickets: SearchForArtists.searchBindings.MinTickets() },
             dataType: 'html',
             success: DisplayEventTickets,
             error: ShowAjaxError,
@@ -56,3 +56,4 @@ var ArtistEvents;
         alert(jqXHR + ' ' + textStatus + ' ' + errorThrown);
     }
 })(ArtistEvents || (ArtistEvents = {}));
+//# sourceMappingURL=ArtistEvents.js.map

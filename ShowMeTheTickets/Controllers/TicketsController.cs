@@ -1,4 +1,5 @@
-﻿using ShowMeTheTickets.Interfaces;
+﻿using GogoKit.Models.Response;
+using ShowMeTheTickets.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace ShowMeTheTickets.Controllers
             _ticketsHelper = ticketsHelper;
         }
         [HttpGet]
-        public async Task<ActionResult> GetEventTickets(int eventId)
+        public async Task<ActionResult> GetEventTickets(int eventId, int minTickets)
         {
-            var tickets = await _ticketsHelper.GetEventTickets(eventId);
+            var tickets = await _ticketsHelper.GetEventTickets(eventId, minTickets);
 
             Session.Add(Constants.Session.EventTicketsResultsKey, tickets);
 
