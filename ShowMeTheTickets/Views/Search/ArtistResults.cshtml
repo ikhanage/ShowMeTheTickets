@@ -15,7 +15,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var artist in Model)
+                    @foreach (var artist in Model.Where(x => x.Type == "Category"))
+                    {
+                        <tr data-bind="click: SelectedArtist" onclick="SearchForArtists.SelectArtist('@artist.Title')" style="cursor: pointer">
+                            <td class="text-center">
+                                <span>@artist.Title</span>
+                            </td>
+                        </tr>
+                    }                    
+                </tbody>
+            </table>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Choose an event (click on a row)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var artist in Model.Where(x => x.Type == "Event"))
                     {
                         <tr data-bind="click: SelectedArtist" onclick="SearchForArtists.SelectArtist('@artist.Title')" style="cursor: pointer">
                             <td class="text-center">
