@@ -22,5 +22,11 @@
 <script type="text/javascript">
     $(function () {
         SearchForArtists.SetBindings();
+
+        $(document).keypress(function (e) {
+            if (e.which == 13) {
+                SearchForArtists.Search();
+            }
+        });
     });
 </script>
