@@ -18,6 +18,9 @@ namespace ShowMeTheTickets.Helpers
         }
         public async Task<IEnumerable<Event>> GetEvents(Link categoryLink, string dateFrom)
         {
+            if (categoryLink == null)
+                return new List<Event>();
+
             var category = await _viaGoGoHelper.GetCategories(categoryLink);
             var events = await _viaGoGoHelper.GetEvents(category.Id.Value);
 
