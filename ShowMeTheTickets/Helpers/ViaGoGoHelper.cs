@@ -23,14 +23,14 @@ namespace ShowMeTheTickets.Helpers
             return category;
         }
 
-        public async Task<IReadOnlyList<Event>> GetEvents(int categoryId)
+        public async Task<IEnumerable<Event>> GetEvents(int categoryId)
         {
             await SetUpClient();
             var events = await ViagogoClient.Events.GetAllByCategoryAsync(categoryId);
             return events;
         }
 
-        public async Task<IReadOnlyList<Listing>> GetEventTickets(int eventId)
+        public async Task<IEnumerable<Listing>> GetEventTickets(int eventId)
         {
             await SetUpClient();
             var tickets = await ViagogoClient.Listings.GetAllByEventAsync(eventId);

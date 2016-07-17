@@ -26,7 +26,7 @@ namespace ShowMeTheTickets.Helpers
             return tickets.OrderBy(x => x.TicketPrice.Amount).ToList();
         }
 
-        private IReadOnlyList<Listing> FilterTickets(IReadOnlyList<Listing> tickets, int minTickets)
+        private IReadOnlyList<Listing> FilterTickets(IEnumerable<Listing> tickets, int minTickets)
         {
             return tickets.Where(x => x.NumberOfTickets != null && x.NumberOfTickets >= minTickets).ToList();
         }

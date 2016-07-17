@@ -16,12 +16,12 @@ namespace ShowMeTheTickets.Tests.Helpers
     /// Summary description for SearchForArtistsHelper
     /// </summary>
     [TestClass]
-    public class EventsHelperTests
+    public class EventsHelperSortAndOrderTests
     {
         private readonly EventsHelper _eventsHelper;
         private readonly Mock<IViaGoGoHelper> _viaGoGoHelperMoq;
         private static List<Event> Events;
-        public EventsHelperTests()
+        public EventsHelperSortAndOrderTests()
         {
             _viaGoGoHelperMoq = new Mock<IViaGoGoHelper>();
             _eventsHelper = new EventsHelper(_viaGoGoHelperMoq.Object);

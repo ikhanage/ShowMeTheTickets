@@ -113,7 +113,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\EventsHelperTests.cs" />
+    <Compile Include="Helpers\EventsHelperFilterTests.cs" />
+    <Compile Include="Helpers\EventsHelperSortAndOrderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>

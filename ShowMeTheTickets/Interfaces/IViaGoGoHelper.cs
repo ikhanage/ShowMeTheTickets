@@ -9,7 +9,7 @@ namespace ShowMeTheTickets.Interfaces
     {
         Task<PagedResource<SearchResult>> GetSearchResults(string query);
         Task<Category> GetCategories(Link categoryLink);
-        Task<IReadOnlyList<Event>> GetEvents(int categoryId);
-        Task<IReadOnlyList<Listing>> GetEventTickets(int eventId);
+        Task<IEnumerable<Event>> GetEvents(int categoryId);
+        Task<IEnumerable<Listing>> GetEventTickets(int eventId);
     }
 }
