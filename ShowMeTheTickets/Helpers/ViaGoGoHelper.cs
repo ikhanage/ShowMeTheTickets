@@ -4,6 +4,7 @@ using HalKit.Models.Response;
 using ShowMeTheTickets.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace ShowMeTheTickets.Helpers
 {
@@ -35,6 +36,12 @@ namespace ShowMeTheTickets.Helpers
             await SetUpClient();
             var tickets = await ViagogoClient.Listings.GetAllByEventAsync(eventId);
             return tickets;
+        }
+
+        public async Task<Event> GetEventFromEventLink(Link eventLink)
+        {
+            await SetUpClient();
+            return await ViagogoClient.Hypermedia.GetAsync<Event>(eventLink);
         }
     }
 }

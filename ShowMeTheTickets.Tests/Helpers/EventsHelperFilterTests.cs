@@ -55,7 +55,7 @@ namespace ShowMeTheTickets.Tests.Helpers
 
             var eventsHelper = new EventsHelper(viagogoMock.Object);
 
-            var events = eventsHelper.GetEvents(new Link(), DateTime.Now.ToString());
+            var events = eventsHelper.GetEventsFromCategory(new Link(), DateTime.Now.ToString());
 
             Assert.IsTrue(events.Result.Count() == 1);
         }
@@ -93,7 +93,7 @@ namespace ShowMeTheTickets.Tests.Helpers
 
             var eventsHelper = new EventsHelper(viagogoMock.Object);
 
-            var events = eventsHelper.GetEvents(new Link(), DateTime.Now.ToString());
+            var events = eventsHelper.GetEventsFromCategory(new Link(), DateTime.Now.ToString());
 
             Assert.IsFalse(events.Result.Any());
         }
@@ -131,7 +131,7 @@ namespace ShowMeTheTickets.Tests.Helpers
 
             var eventsHelper = new EventsHelper(viagogoMock.Object);
 
-            var events = eventsHelper.GetEvents(new Link(), "");
+            var events = eventsHelper.GetEventsFromCategory(new Link(), "");
 
             Assert.IsTrue(events.Result.Count() == 1);
         }
@@ -169,7 +169,7 @@ namespace ShowMeTheTickets.Tests.Helpers
 
             var eventsHelper = new EventsHelper(viagogoMock.Object);
 
-            var events = eventsHelper.GetEvents(new Link(), null);
+            var events = eventsHelper.GetEventsFromCategory(new Link(), null);
 
             Assert.IsTrue(events.Result.Count() == 1);
         }

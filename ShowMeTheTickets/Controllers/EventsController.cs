@@ -1,10 +1,8 @@
 ﻿using GogoKit.Models.Response;
 using ShowMeTheTickets.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ShowMeTheTickets.Controllers
@@ -22,9 +20,18 @@ namespace ShowMeTheTickets.Controllers
         {
             var artists = (IEnumerable<SearchResult>)Session[Constants.Session.ArtistSearchResultsKey];
 
-            var link = artists.FirstOrDefault(x => x.Title == artistTitle).CategoryLink;
+            var artist = artists.FirstOrDefault(x => x.Title == artistTitle);
 
-            var events = await _eventsHelper.GetEvents(link, dateFrom);
+            IEnumerable<Event> events;
+            if(artist.Type == "Event")
+            {
+                events = await _eventsHelper.GetEventsFromEvent(artist.EventLink, dateFrom);
+            }
+            else
+            {
+                events = await _eventsHelper.GetEventsFromCategory(artist.CategoryLink, dateFrom);
+            }
+            
 
             return PartialView("~/Views/Events/ArtistEvents.cshtml", events);
         }

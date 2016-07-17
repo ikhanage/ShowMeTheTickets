@@ -2,6 +2,10 @@
 
 @using System.Collections.Generic;
 @using System.Linq;
+@{
+    var i = 0;
+    var page = 0;
+}
 
 @if (Model.Any())
 {
@@ -16,11 +20,7 @@
                 <th>Tickets Available</th>
             </tr>
         </thead>
-        <tbody>
-            @{
-                var i = 0;
-                var page = 0;
-            }
+        <tbody>            
             @foreach (var countryEvents in Model.GroupBy(x => x.Venue.Country.Name))
             {
                 <tr class="countryRow" data-country="@countryEvents.Key">
@@ -55,5 +55,8 @@ else
 <script type="text/javascript">
     $(function () {
         ArtistEvents.GetPageOfResults(1);
+
+        if(@i == 1)
+            $('.ticketsRow').click();
     });
 </script>

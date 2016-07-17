@@ -11,5 +11,6 @@ namespace ShowMeTheTickets.Interfaces
         Task<Category> GetCategories(Link categoryLink);
         Task<IEnumerable<Event>> GetEvents(int categoryId);
         Task<IEnumerable<Listing>> GetEventTickets(int eventId);
+        Task<Event> GetEventFromEventLink(Link eventLink);
     }
 }

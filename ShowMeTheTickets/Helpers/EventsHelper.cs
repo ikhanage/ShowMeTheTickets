@@ -16,13 +16,25 @@ namespace ShowMeTheTickets.Helpers
         {
             _viaGoGoHelper = viaGoGoHelper;
         }
-        public async Task<IEnumerable<Event>> GetEvents(Link categoryLink, string dateFrom)
+        public async Task<IEnumerable<Event>> GetEventsFromCategory(Link categoryLink, string dateFrom)
         {
             if (categoryLink == null)
                 return new List<Event>();
 
             var category = await _viaGoGoHelper.GetCategories(categoryLink);
             var events = await _viaGoGoHelper.GetEvents(category.Id.Value);
+
+            return EventsGroupByCountrySortByPrice(FilterEventsByDate(events, dateFrom));
+        }
+
+        public async Task<IEnumerable<Event>> GetEventsFromEvent(Link eventLink, string dateFrom)
+        {
+            if (eventLink == null)
+                return new List<Event>();
+
+            var singleEvent = await _viaGoGoHelper.GetEventFromEventLink(eventLink);
+
+            var events = new List<Event>() { singleEvent };
 
             return EventsGroupByCountrySortByPrice(FilterEventsByDate(events, dateFrom));
         }
