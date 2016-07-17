@@ -56,7 +56,10 @@ module ArtistEvents {
     }
 
     function DisplayEventTickets(data) {
-        $('#TicketsContainer').html(data)
+        $('#TicketsContainer').html(data);
+        $('html,body').animate({
+            scrollTop: $("#EventsAndTicketsContainer").offset().top
+        });
     }
 
     function ShowAjaxError(jqXHR: any, textStatus: any, errorThrown: any) {

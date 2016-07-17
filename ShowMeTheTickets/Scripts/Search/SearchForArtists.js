@@ -64,4 +64,3 @@ var SearchForArtists;
         this.DateFrom = ko.observable();
     }
 })(SearchForArtists || (SearchForArtists = {}));
-//# sourceMappingURL=SearchForArtists.js.map

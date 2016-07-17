@@ -51,9 +51,11 @@ var ArtistEvents;
     ArtistEvents.GetPageOfResults = GetPageOfResults;
     function DisplayEventTickets(data) {
         $('#TicketsContainer').html(data);
+        $('html,body').animate({
+            scrollTop: $("#EventsAndTicketsContainer").offset().top
+        });
     }
     function ShowAjaxError(jqXHR, textStatus, errorThrown) {
         alert(jqXHR + ' ' + textStatus + ' ' + errorThrown);
     }
 })(ArtistEvents || (ArtistEvents = {}));
-//# sourceMappingURL=ArtistEvents.js.map

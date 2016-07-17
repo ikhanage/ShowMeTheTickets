@@ -30,4 +30,3 @@ var EventTickets;
     }
     EventTickets.GetPageOfResults = GetPageOfResults;
 })(EventTickets || (EventTickets = {}));
-//# sourceMappingURL=EventTickets.js.map
